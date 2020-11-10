@@ -3,6 +3,12 @@ import Search from "./Search";
 import Sort from "./Sort";
 
 class TaskItem extends Component {
+
+  onUpdateStatus = () => {
+    this.props.onUpdateStatus(this.props.task.id)
+  }
+
+
   render() {
     var { task, index } = this.props;
     return (
@@ -11,6 +17,7 @@ class TaskItem extends Component {
         <td>{task.name}</td>
         <td className="text-center">
           <span
+          onClick={this.onUpdateStatus}
             className={
               task.status === true
                 ? "label label-danger"
