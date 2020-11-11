@@ -5,9 +5,20 @@ class TaskForm extends Component {
     super(props);
 
     this.state = {
+      id: "",
       name: "",
       status: false,
     };
+  }
+
+  componentWillMount() {
+    if (this.props.task) {
+      this.setState({
+        id: this.props.task.id,
+        name: this.props.task.name,
+        status: this.props.task.status,
+      });
+    }
   }
 
   onCloseForm = () => {
@@ -18,29 +29,30 @@ class TaskForm extends Component {
     var target = event.target;
     var name = target.name;
     var value = target.value;
-    if(name === 'status') {
-      value = target.value === 'true' ? true : false;
+    if (name === "status") {
+      value = target.value === "true" ? true : false;
     }
     this.setState({
-      [name] : value
-    })
-  }
+      [name]: value,
+    });
+  };
 
   onSubmit = (event) => {
     event.preventDefault();
     this.props.onSubmit(this.state);
     this.onClear();
     this.onCloseForm();
-  }
+  };
 
   onClear = () => {
     this.setState({
-      name: '',
-      status: false
-    })
-  }
+      name: "",
+      status: false,
+    });
+  };
 
   render() {
+    var { id } = this.state;
     return (
       <div className="panel panel-warning">
         <div
@@ -51,7 +63,7 @@ class TaskForm extends Component {
             alignItems: "center",
           }}
         >
-          <h3 className="panel-title">Thêm Công Việc</h3>
+          <h3 className="panel-title">{id !== '' ? 'Cap nhat cong viec' : 'Thêm Công Việc'} </h3>
           <span onClick={this.onCloseForm}>
             <i class="fa fa-times-circle" aria-hidden="true"></i>
           </span>
@@ -85,10 +97,10 @@ class TaskForm extends Component {
                 Thêm
               </button>
               &nbsp;
-              <button 
-              type="submit" 
-              className="btn btn-danger"
-              onClick={this.onClear}
+              <button
+                type="submit"
+                className="btn btn-danger"
+                onClick={this.onClear}
               >
                 Hủy Bỏ
               </button>
