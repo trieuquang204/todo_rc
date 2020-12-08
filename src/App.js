@@ -14,6 +14,7 @@ class App extends Component {
         name: "",
         status: -1,
       },
+      keyword: "",
     };
   }
 
@@ -144,8 +145,14 @@ class App extends Component {
     });
   };
 
+  onSearch = (keyword) => {
+    this.setState({
+      keyword: keyword
+    })
+  };
+
   render() {
-    var { tasks, isDisplayForm, taskEditing, filter } = this.state;
+    var { tasks, isDisplayForm, taskEditing, filter, keyword } = this.state;
     if (filter) {
       if (filter.name) {
         tasks = tasks.filter((task) => {
@@ -169,6 +176,12 @@ class App extends Component {
     ) : (
       ""
     );
+
+    if(keyword) {
+      tasks = tasks.filter((task) => {
+        return task.name.toLowerCase().indexOf(keyword) !== -1;
+      });
+    }
 
     return (
       <div className="container">
@@ -201,7 +214,7 @@ class App extends Component {
               <span className="fa fa-plus mr-5"></span>Thêm Công Việc
             </button>
             {/* Control  */}
-            <Control />
+            <Control onSearch={this.onSearch} />
             {/* end Control  */}
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
