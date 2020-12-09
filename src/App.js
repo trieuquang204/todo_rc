@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TaskForm from "./components/TaskForm";
 import Control from "./components/Control";
 import TaskList from "./components/TaskList";
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
@@ -15,6 +16,8 @@ class App extends Component {
         status: -1,
       },
       keyword: "",
+      sortBy: 'name',
+      sortValue: 1
     };
   }
 
@@ -147,12 +150,19 @@ class App extends Component {
 
   onSearch = (keyword) => {
     this.setState({
-      keyword: keyword
-    })
+      keyword: keyword,
+    });
   };
 
+  onSort = (sortBy, sortValue) => {
+    this.setState({
+      sortBy: sortBy,
+      sortValue: sortValue
+    })
+  }
+
   render() {
-    var { tasks, isDisplayForm, taskEditing, filter, keyword } = this.state;
+    var { tasks, isDisplayForm, taskEditing, filter, keyword, sortBy, sortValue } = this.state;
     if (filter) {
       if (filter.name) {
         tasks = tasks.filter((task) => {
@@ -167,6 +177,22 @@ class App extends Component {
         }
       });
     }
+
+    if(sortBy === 'name') {
+      tasks.sort((a, b) => {
+        if(a.name > b.name ) return sortValue;
+         else if(a.name < b.name ) return -sortValue;
+         else return 0;
+      })
+    }else {
+      tasks.sort((a, b) => {
+        if(a.status > b.status ) return -sortValue;
+         else if(a.name < b.name ) return sortValue;
+         else return 0;
+      })
+    }
+
+    
     var elmTaskForm = isDisplayForm ? (
       <TaskForm
         task={taskEditing}
@@ -177,12 +203,13 @@ class App extends Component {
       ""
     );
 
-    if(keyword) {
+    if (keyword) {
       tasks = tasks.filter((task) => {
         return task.name.toLowerCase().indexOf(keyword) !== -1;
       });
     }
 
+  
     return (
       <div className="container">
         <div className="text-center">
@@ -214,7 +241,7 @@ class App extends Component {
               <span className="fa fa-plus mr-5"></span>Thêm Công Việc
             </button>
             {/* Control  */}
-            <Control onSearch={this.onSearch} />
+            <Control onSearch={this.onSearch} onSort={this.onSort} sortBy={sortBy} sortValue={sortValue} />
             {/* end Control  */}
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">

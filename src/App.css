@@ -59,10 +59,12 @@
 }
 
 .sort_selected::after {
-  content: '\f00c';
-  font-family: FontAwsome;
-  font-weight: normal;
-  font-style: normal;
-  margin: 0 0 0 10px;
-  display: inline-block;
+  font-family: "Font Awesome 5 Free";
+   content: "\f095";
+   display: inline-block;
+   padding-right: 3px;
+   vertical-align: middle;
+   font-weight:900;
+   background-color: red;
 }
+
