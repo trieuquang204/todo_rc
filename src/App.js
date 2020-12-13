@@ -248,7 +248,7 @@ class App extends Component {
                 {/* TaskList */}
                 <TaskList
                   onUpdate={this.onUpdate}
-                  tasks={tasks}
+                  // tasks={tasks}
                   onDelete={this.onDelete}
                   onUpdateStatus={this.onUpdateStatus}
                   onFilter={this.onFilter}
