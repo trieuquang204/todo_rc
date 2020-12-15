@@ -90,18 +90,18 @@ class App extends Component {
     return result;
   };
 
-  onDelete = (id) => {
-    var { tasks } = this.state;
-    var index = this.findIndex(id);
-    if (index !== -1) {
-      tasks.splice(index, 1);
-      this.setState({
-        tasks: tasks,
-      });
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-    }
-    this.onCloseForm();
-  };
+  // onDelete = (id) => {
+  //   var { tasks } = this.state;
+  //   var index = this.findIndex(id);
+  //   if (index !== -1) {
+  //     tasks.splice(index, 1);
+  //     this.setState({
+  //       tasks: tasks,
+  //     });
+  //     localStorage.setItem("tasks", JSON.stringify(tasks));
+  //   }
+  //   this.onCloseForm();
+  // };
 
   onUpdate = (id) => {
     var { tasks } = this.state;
@@ -229,7 +229,7 @@ class App extends Component {
                 <TaskList
                   onUpdate={this.onUpdate}
                   // tasks={tasks}
-                  onDelete={this.onDelete}
+                  // onDelete={this.onDelete}
                   // onUpdateStatus={this.onUpdateStatus}
                   onFilter={this.onFilter}
                 />

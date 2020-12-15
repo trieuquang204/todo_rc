@@ -6,12 +6,12 @@ import * as actions from '../actions/index';
 
 class TaskItem extends Component {
   onUpdateStatus = () => {
-    // this.props.onUpdateStatus(this.props.task.id);
     this.props.onUpdateStatus(this.props.task.id);
   };
 
   onDelete = () => {
-    this.props.onDelete(this.props.task.id);
+    this.props.onDeleteTask(this.props.task.id);
+    this.props.onCloseForm();
   };
 
   onUpdate = () => {
@@ -66,6 +66,12 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onUpdateStatus: (id) => {
       dispatch(actions.updateStatus(id));
+    },
+    onDeleteTask: (id) => {
+      dispatch(actions.deleteTask(id));
+    },
+    onCloseForm: () => {
+      dispatch(actions.closeForm());
     },
   };
 };

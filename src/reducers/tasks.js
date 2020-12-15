@@ -37,15 +37,21 @@ var myReducers = (state = initialState, action) => {
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];
     case types.UPDATE_STATUS_TASK:
-      const id = action.id;
+      var id = action.id;
       var index = findIndex(state, id);
       state[index] = {
         ...state[index],
-        status : !state[index].status
+        status: !state[index].status,
       };
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];
-
+    case types.DELETE_TASK:
+      var id = action.id;
+      console.log('quang', id);
+      var index = findIndex(state, id);
+      state.splice(index, 1);
+      localStorage.setItem("tasks", JSON.stringify(state));
+      return [...state];
     default:
       return state;
   }
