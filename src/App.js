@@ -67,17 +67,17 @@ class App extends Component {
   //   localStorage.setItem("tasks", JSON.stringify(tasks));
   // };
 
-  onUpdateStatus = (id) => {
-    var { tasks } = this.state;
-    var index = this.findIndex(id);
-    if (index !== -1) {
-      tasks[index].status = !tasks[index].status;
-      this.setState({
-        tasks: tasks,
-      });
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-    }
-  };
+  // onUpdateStatus = (id) => {
+  //   var { tasks } = this.state;
+  //   var index = this.findIndex(id);
+  //   if (index !== -1) {
+  //     tasks[index].status = !tasks[index].status;
+  //     this.setState({
+  //       tasks: tasks,
+  //     });
+  //     localStorage.setItem("tasks", JSON.stringify(tasks));
+  //   }
+  // };
 
   findIndex = (id) => {
     var { tasks } = this.state;
@@ -230,7 +230,7 @@ class App extends Component {
                   onUpdate={this.onUpdate}
                   // tasks={tasks}
                   onDelete={this.onDelete}
-                  onUpdateStatus={this.onUpdateStatus}
+                  // onUpdateStatus={this.onUpdateStatus}
                   onFilter={this.onFilter}
                 />
                 {/* end TaskList */}

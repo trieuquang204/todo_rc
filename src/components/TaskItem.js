@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import Search from "./Search";
 import Sort from "./Sort";
+import { connect } from 'react-redux';
+import * as actions from '../actions/index';
 
 class TaskItem extends Component {
   onUpdateStatus = () => {
+    // this.props.onUpdateStatus(this.props.task.id);
     this.props.onUpdateStatus(this.props.task.id);
   };
 
@@ -53,4 +56,18 @@ class TaskItem extends Component {
   }
 }
 
-export default TaskItem;
+const mapStateToProps = (state) => {
+  return {
+    
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onUpdateStatus: (id) => {
+      dispatch(actions.updateStatus(id));
+    },
+  };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps ) (TaskItem);

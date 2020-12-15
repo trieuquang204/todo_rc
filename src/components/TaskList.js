@@ -35,7 +35,7 @@ class TaskList extends Component {
           task={task}
           onUpdate={this.props.onUpdate}
           onDelete={this.props.onDelete}
-          onUpdateStatus={this.props.onUpdateStatus}
+          // onUpdateStatus={this.props.onUpdateStatus}
         />
       );
     });
