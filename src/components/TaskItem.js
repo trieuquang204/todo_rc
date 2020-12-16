@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Search from "./Search";
 import Sort from "./Sort";
-import { connect } from 'react-redux';
-import * as actions from '../actions/index';
+import { connect } from "react-redux";
+import * as actions from "../actions/index";
 
 class TaskItem extends Component {
   onUpdateStatus = () => {
@@ -15,8 +15,10 @@ class TaskItem extends Component {
   };
 
   onUpdate = () => {
-    this.props.onUpdate(this.props.task.id);
-  }
+    // this.props.onUpdate(this.props.task.id);
+    this.props.onOpenForm();
+    this.props.onEditTask(this.props.task);
+  };
 
   render() {
     var { task, index } = this.props;
@@ -37,9 +39,11 @@ class TaskItem extends Component {
           </span>
         </td>
         <td className="text-center">
-          <button 
+          <button
             onClick={this.onUpdate}
-          type="button" className="btn btn-warning">
+            type="button"
+            className="btn btn-warning"
+          >
             <span className="fa fa-pencil mr-5"></span>Sửa
           </button>
           &nbsp;
@@ -57,9 +61,7 @@ class TaskItem extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch, props) => {
@@ -73,7 +75,14 @@ const mapDispatchToProps = (dispatch, props) => {
     onCloseForm: () => {
       dispatch(actions.closeForm());
     },
+    onOpenForm: () => {
+      dispatch(actions.openForm());
+    },
+    onEditTask: (task) => {
+      dispatch(actions.editTask(task));
+    },
+    
   };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps ) (TaskItem);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskItem);

@@ -169,15 +169,7 @@ class App extends Component {
     //   })
     // }
 
-    var elmTaskForm = isDisplayForm ? (
-      <TaskForm
-        task={taskEditing}
-        // onSave={this.onSave}
-        // onCloseForm={this.onCloseForm}
-      />
-    ) : (
-      ""
-    );
+    // var elmTaskForm = isDisplayForm ? <TaskForm task={taskEditing} /> : "";
 
     // if (keyword) {
     //   tasks = tasks.filter((task) => {
@@ -198,7 +190,8 @@ class App extends Component {
             }
           >
             {/* TaskForm */}
-            {elmTaskForm}
+            {/* {elmTaskForm} */}
+            <TaskForm task={taskEditing} />
             {/* end TaskForm  */}
           </div>
           <div
@@ -254,8 +247,6 @@ const mapDispatchToProps = (dispatch, props) => {
     onToggleForm: () => {
       dispatch(actions.toggleForm());
     },
-   
-
   };
 };
 
