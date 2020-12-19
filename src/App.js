@@ -10,9 +10,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // tasks: [], //id, name, status
-      // isDisplayForm: false,
-      taskEditing: null,
       filter: {
         name: "",
         status: -1,
@@ -24,18 +21,17 @@ class App extends Component {
   }
 
   onToggleForm = () => {
-    // if (this.state.isDisplayForm && this.state.taskEditing !== null) {
-    //   this.setState({
-    //     isDisplayForm: true,
-    //     taskEditing: null,
-    //   });
-    // } else {
-    //   this.setState({
-    //     isDisplayForm: !this.state.isDisplayForm,
-    //     taskEditing: null,
-    //   });
-    // }
-    this.props.onToggleForm();
+    var { itemEditing } = this.props;
+    if (itemEditing && itemEditing.id !== "") {
+      this.props.onOpenForm();
+    } else {
+      this.props.onToggleForm();
+    }
+    this.props.onClearTask({
+      id: "",
+      name: "",
+      status: false,
+    });
   };
 
   // onCloseForm = () => {
@@ -137,7 +133,7 @@ class App extends Component {
   };
 
   render() {
-    var { taskEditing, filter, keyword, sortBy, sortValue } = this.state;
+    var { filter, keyword, sortBy, sortValue } = this.state;
     var { isDisplayForm } = this.props;
 
     // if (filter) {
@@ -191,7 +187,7 @@ class App extends Component {
           >
             {/* TaskForm */}
             {/* {elmTaskForm} */}
-            <TaskForm task={taskEditing} />
+            <TaskForm />
             {/* end TaskForm  */}
           </div>
           <div
@@ -221,9 +217,6 @@ class App extends Component {
                 {/* TaskList */}
                 <TaskList
                   onUpdate={this.onUpdate}
-                  // tasks={tasks}
-                  // onDelete={this.onDelete}
-                  // onUpdateStatus={this.onUpdateStatus}
                   onFilter={this.onFilter}
                 />
                 {/* end TaskList */}
@@ -239,6 +232,7 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     isDisplayForm: state.isDisplayForm,
+    itemEditing: state.itemEditing,
   };
 };
 
@@ -246,6 +240,12 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onToggleForm: () => {
       dispatch(actions.toggleForm());
+    },
+    onClearTask: (task) => {
+      dispatch(actions.editTask(task));
+    },
+    onOpenForm: () => {
+      dispatch(actions.openForm());
     },
   };
 };

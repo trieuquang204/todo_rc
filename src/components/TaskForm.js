@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
-import * as actions from '../actions/index';
+import { connect } from "react-redux";
+import * as actions from "../actions/index";
 
 class TaskForm extends Component {
   constructor(props) {
@@ -24,19 +24,18 @@ class TaskForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps && nextProps.task) {
+    if (nextProps && nextProps.itemEditing) {
       this.setState({
-        id: nextProps.task.id,
-        name: nextProps.task.name,
-        status: nextProps.task.status,
+        id: nextProps.itemEditing.id,
+        name: nextProps.itemEditing.name,
+        status: nextProps.itemEditing.status,
       });
-    }
-    else if(nextProps && nextProps.task === null ) {
+    } else if (nextProps && nextProps.task === null) {
       this.setState({
-        id : '',
-        name : '',
-        status : false
-      })
+        id: "",
+        name: "",
+        status: false,
+      });
     }
   }
 
@@ -58,8 +57,7 @@ class TaskForm extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    // this.props.onSave(this.state);
-    this.props.onAddTask(this.state);
+    this.props.onSaveTask(this.state);
     this.onClear();
     this.onCloseForm();
   };
@@ -73,7 +71,7 @@ class TaskForm extends Component {
 
   render() {
     var { id } = this.state;
-    if(!this.props.isDisplayForm) return "";
+    if (!this.props.isDisplayForm) return null;
     return (
       <div className="panel panel-warning">
         <div
@@ -84,7 +82,9 @@ class TaskForm extends Component {
             alignItems: "center",
           }}
         >
-          <h3 className="panel-title">{id !== '' ? 'Cap nhat cong viec' : 'Thêm Công Việc'} </h3>
+          <h3 className="panel-title">
+            {id !== "" ? "Cap nhat cong viec" : "Thêm Công Việc"}{" "}
+          </h3>
           <span onClick={this.onCloseForm}>
             <i class="fa fa-times-circle" aria-hidden="true"></i>
           </span>
@@ -136,19 +136,19 @@ class TaskForm extends Component {
 const mapStateToProps = (state) => {
   return {
     isDisplayForm: state.isDisplayForm,
-  }
-}
+    itemEditing: state.itemEditing,
+  };
+};
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onAddTask: (task) => {
-      dispatch(actions.addTask(task))
+    onSaveTask: (task) => {
+      dispatch(actions.saveTask(task));
     },
     onCloseForm: () => {
       dispatch(actions.closeForm());
     },
-   
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps) (TaskForm);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskForm);
