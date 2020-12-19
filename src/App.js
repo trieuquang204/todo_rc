@@ -10,10 +10,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filter: {
-        name: "",
-        status: -1,
-      },
       keyword: "",
       sortBy: "name",
       sortValue: 1,
@@ -107,16 +103,6 @@ class App extends Component {
       taskEditing: taskEditing,
     });
     this.onShowForm();
-  };
-
-  onFilter = (filterName, filterStatus) => {
-    filterStatus = parseInt(filterStatus, 10);
-    this.setState({
-      filter: {
-        name: filterName.toLowerCase(),
-        status: filterStatus,
-      },
-    });
   };
 
   onSearch = (keyword) => {
@@ -215,10 +201,7 @@ class App extends Component {
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 {/* TaskList */}
-                <TaskList
-                  onUpdate={this.onUpdate}
-                  onFilter={this.onFilter}
-                />
+                <TaskList/>
                 {/* end TaskList */}
               </div>
             </div>
