@@ -24,6 +24,7 @@ var data = JSON.parse(localStorage.getItem("tasks"));
 var initialState = data ? data : [];
 
 var myReducers = (state = initialState, action) => {
+  var id, index;
   switch (action.type) {
     case types.LIST_ALL:
       return state;
@@ -37,15 +38,15 @@ var myReducers = (state = initialState, action) => {
         task.id = generateId();
         state.push(task);
       } else {
-        var index = findIndex(state, task.id);
+        index = findIndex(state, task.id);
         state[index] = task;
       }
 
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];
     case types.UPDATE_STATUS_TASK:
-      var id = action.id;
-      var index = findIndex(state, id);
+      id = action.id;
+      index = findIndex(state, id);
       state[index] = {
         ...state[index],
         status: !state[index].status,
@@ -53,9 +54,8 @@ var myReducers = (state = initialState, action) => {
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];
     case types.DELETE_TASK:
-      var id = action.id;
-      console.log("quang", id);
-      var index = findIndex(state, id);
+      id = action.id;
+      index = findIndex(state, id);
       state.splice(index, 1);
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];

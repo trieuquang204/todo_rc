@@ -119,7 +119,7 @@ class App extends Component {
   };
 
   render() {
-    var { filter, keyword, sortBy, sortValue } = this.state;
+    var { sortBy, sortValue } = this.state;
     var { isDisplayForm } = this.props;
 
     // if (filter) {
@@ -201,7 +201,7 @@ class App extends Component {
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 {/* TaskList */}
-                <TaskList/>
+                <TaskList />
                 {/* end TaskList */}
               </div>
             </div>
